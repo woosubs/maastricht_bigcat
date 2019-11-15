@@ -1,0 +1,8 @@
+# Temporary files
+*#
+
+# unzipped linkset files
+linksets/*.xgmml
+
+# OX generated files
+.DS_Store
