@@ -4,5 +4,9 @@
 # unzipped linkset files
 linksets/*.xgmml
 
-# OX generated files
+# OS generated files
 .DS_Store
+
+# others
+.gitignore
+.gitignore~
