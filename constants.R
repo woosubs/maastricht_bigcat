@@ -1,5 +1,5 @@
 # constants.R
-# project title: 'BiGCaT Coding Assignment'
+# project title: 'BiGCaT Tasks'
 # author: Woosub Shin
 # final update: 16 November 2019
 ###############################################
