@@ -1,9 +1,23 @@
-# title: 'BiGCaT Interview Task'
+# task.R
+# project title: 'BiGCaT Coding Assignment'
 # author: Woosub Shin
-# date: 15 November 2019
+# final update: 16 November 2019
+###############################################
+# This scripts performs three tasks for BiGCaT.
+# First task is to link a list of SNPs 
+# to appropriate genes using biomart. 
+# Second task is to create a SNP-gene network
+# on Cytospace. 
+# Third, and final task is to extend 
+# the SNP-gene network by WikiPathway linkset, 
+# using CyTargetLinker. 
+#
+# Each task section is marked and commented. 
+###############################################
 
-setwd("~/Desktop/Study/Maastricht")
+
 source("constants.R")
+setwd(MAIN_DIR)
 
 # load package and check
 library(biomaRt)
@@ -67,10 +81,6 @@ createNetworkFromDataFrames(nodes_df,
                             directed=FALSE,
                             collection=GRAPHNEL_NETWORKS)
 
-# save and export file (optional; for presentation)
-# png_file <- file.path(getwd(), "snp_gene_network.png")
-# exportImage(png_file,'PNG')
-
 #########################################################
 #   Task 3: Extend Network using Wikipathways linkset   #
 #########################################################
@@ -87,8 +97,8 @@ commandsRun(CTLextend.cmd)
 layoutNetwork()
 
 # save and export file 
-png_file <- file.path(getwd(), "snp_gene_network_extended2.png")
-exportImage(png_file,'PNG')
+png_file <- file.path(getwd(), "snp_gene_network_extended.png")
+exportImage(png_file, PNG)
 
 # apply styles (again, adapted from above)
 vizstyle_file <- file.path(getwd(), VIZSTYLES, VIZ_USECASE2)
@@ -99,4 +109,4 @@ commandsRun(ApplyStyle.cmd)
 
 # save and export file 
 png_file <- file.path(getwd(), "snp_gene_network_extended2.png")
-exportImage(png_file,'PNG')
+exportImage(png_file, PNG)
