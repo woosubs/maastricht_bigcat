@@ -58,24 +58,45 @@ nodes_df <- data.frame(id, Ensemble)
 
 # create dataframe for edges
 edges_df <- snp_to_gene
-colnames(edges_df) <- c("source", "target")
+colnames(edges_df) <- c(SOURCE, TARGET)
 
 # create the network
 createNetworkFromDataFrames(nodes_df,
                             edges_df,
-                            title='SNP-Gene Network',
+                            title=SNP_GENE_NETWORK,
                             directed=FALSE,
-                            collection='GraphNEL Networks')
+                            collection=GRAPHNEL_NETWORKS)
 
 # save and export file (optional; for presentation)
-png_file <- file.path(MAIN_DIR, "snp_gene_network.png")
-exportImage(png_file,'PNG')
+# png_file <- file.path(getwd(), "snp_gene_network.png")
+# exportImage(png_file,'PNG')
 
 #########################################################
 #   Task 3: Extend Network using Wikipathways linkset   #
 #########################################################
 
+# adapted from github:cytargetlinker-automation/R-automation/UseCase2/UseCase2.Rmd
+wp <- file.path(getwd(), LINKSETS, WIKIPATHWAY_FILE)
+CTLextend.cmd = paste('cytargetlinker extend idAttribute=Ensemble linkSetFiles="',
+                      wp,
+                      '" network="',
+                      SNP_GENE_NETWORK,
+                      '" direction=BOTH',
+                      sep="")
+commandsRun(CTLextend.cmd)
+layoutNetwork()
 
+# save and export file 
+png_file <- file.path(getwd(), "snp_gene_network_extended2.png")
+exportImage(png_file,'PNG')
 
+# apply styles (again, adapted from above)
+vizstyle_file <- file.path(getwd(), VIZSTYLES, VIZ_USECASE2)
+LoadStyle.cmd = paste('vizmap load file file="', vizstyle_file,'"', sep="")
+commandsRun(LoadStyle.cmd)
+ApplyStyle.cmd = 'vizmap apply styles="CTL Gene Pathway Network"'
+commandsRun(ApplyStyle.cmd)
 
-
+# save and export file 
+png_file <- file.path(getwd(), "snp_gene_network_extended2.png")
+exportImage(png_file,'PNG')
